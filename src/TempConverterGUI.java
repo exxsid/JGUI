@@ -19,6 +19,19 @@ public class TempConverterGUI {
     private JComboBox<String> firstChoice = new JComboBox<>(choices);
     private JComboBox<String> secChoice = new JComboBox<>(choices);
 
+    // conversion button
+    private JButton convertBtn = new JButton();
 
+    private JPanel getFirstPanel(){
+        return firstPanel;
+    }
+
+    private JPanel getSecPanel(){
+        return secPanel;
+    }
+
+    private JPanel getConvPanel(){
+        return convPanel;
+    }
 
 }
