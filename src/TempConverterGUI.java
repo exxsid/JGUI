@@ -71,54 +71,62 @@ public class TempConverterGUI {
 //        convertBtn.setSize(100, 30);
         convertBtn.setText("Convert");
         convertBtn.addActionListener(btn -> {
-            if (firstChoice.getSelectedItem().equals(choices[0])){
-                // convert temperature celsius to celsius
-                if (secChoice.getSelectedItem().equals(choices[0])){
-                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+            try {
+                if (firstChoice.getSelectedItem().equals(choices[0])){
+                    // convert temperature celsius to celsius
+                    if (secChoice.getSelectedItem().equals(choices[0])){
+                        secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                    }
+                    // convert temperature celsius to fahrenheit
+                    else if (secChoice.getSelectedItem().equals(choices[1])){
+                        convertCelToFahr(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
+                    // convert celsius to kelvin
+                    else{
+                        convertCelToKelvin(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
                 }
-                // convert temperature celsius to fahrenheit
-                else if (secChoice.getSelectedItem().equals(choices[1])){
-                    convertCelToFahr(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
+                else if (firstChoice.getSelectedItem().equals(choices[1])){
+                    // convert fahrenheit to celsius
+                    if (secChoice.getSelectedItem().equals(choices[0])){
+                        convertFahrToCel(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
+                    // convert fahrenheit to fahrenheit
+                    else if (secChoice.getSelectedItem().equals(choices[1])){
+                        secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                    }
+                    // convert fahrenheit to kelvin
+                    else {
+                        convertFahrToKel(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
                 }
-                // convert celsius to kelvin
-                else{
-                    convertCelToKelvin(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
-                }
-            }
-            else if (firstChoice.getSelectedItem().equals(choices[1])){
-                // convert fahrenheit to celsius
-                if (secChoice.getSelectedItem().equals(choices[0])){
-                    convertFahrToCel(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
-                }
-                // convert fahrenheit to fahrenheit
-                else if (secChoice.getSelectedItem().equals(choices[1])){
-                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
-                }
-                // convert fahrenheit to kelvin
                 else {
-                    convertFahrToKel(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
+                    // convert kelvin to celsius
+                    if (secChoice.getSelectedItem().equals(choices[0])){
+                        convertKelToCel(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
+                    // convert kelvin to fahrenheit
+                    else if (secChoice.getSelectedItem().equals(choices[1])){
+                        convertKelToFahr(Double.parseDouble(firstTxtAr.getText()));
+                        secTxtAr.setText(String.valueOf(resDbl));
+                    }
+                    // convert kelvin to kelvin
+                    else{
+                        secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                    }
                 }
+            } catch (NumberFormatException e){
+                JOptionPane.showMessageDialog(null,
+                        "Enter an Integer",
+                        "Number Format Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            else {
-                // convert kelvin to celsius
-                if (secChoice.getSelectedItem().equals(choices[0])){
-                    convertKelToCel(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
-                }
-                // convert kelvin to fahrenheit
-                else if (secChoice.getSelectedItem().equals(choices[1])){
-                    convertKelToFahr(Double.parseDouble(firstTxtAr.getText()));
-                    secTxtAr.setText(String.valueOf(resDbl));
-                }
-                // convert kelvin to kelvin
-                else{
-                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
-                }
-            }
+
         });
 
         convPanel.setBounds(0, 100, 400, 30);
