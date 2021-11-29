@@ -19,6 +19,9 @@ public class TempConverterGUI {
     private JComboBox<String> firstChoice = new JComboBox<>(choices);
     private JComboBox<String> secChoice = new JComboBox<>(choices);
 
+    // variable for result
+    private double resDbl = 0.0;
+
     // conversion button
     private JButton convertBtn = new JButton();
 
@@ -67,10 +70,84 @@ public class TempConverterGUI {
         convertBtn.setVisible(true);
 //        convertBtn.setSize(100, 30);
         convertBtn.setText("Convert");
+        convertBtn.addActionListener(btn -> {
+            if (firstChoice.getSelectedItem().equals(choices[0])){
+                // convert temperature celsius to celsius
+                if (secChoice.getSelectedItem().equals(choices[0])){
+                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                }
+                // convert temperature celsius to fahrenheit
+                else if (secChoice.getSelectedItem().equals(choices[1])){
+                    convertCelToFahr(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+                // convert celsius to kelvin
+                else{
+                    convertCelToKelvin(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+            }
+            else if (firstChoice.getSelectedItem().equals(choices[1])){
+                // convert fahrenheit to celsius
+                if (secChoice.getSelectedItem().equals(choices[0])){
+                    convertFahrToCel(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+                // convert fahrenheit to fahrenheit
+                else if (secChoice.getSelectedItem().equals(choices[1])){
+                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                }
+                // convert fahrenheit to kelvin
+                else {
+                    convertFahrToKel(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+            }
+            else {
+                // convert kelvin to celsius
+                if (secChoice.getSelectedItem().equals(choices[0])){
+                    convertKelToCel(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+                // convert kelvin to fahrenheit
+                else if (secChoice.getSelectedItem().equals(choices[1])){
+                    convertKelToFahr(Double.parseDouble(firstTxtAr.getText()));
+                    secTxtAr.setText(String.valueOf(resDbl));
+                }
+                // convert kelvin to kelvin
+                else{
+                    secTxtAr.setText(String.valueOf(Double.parseDouble(firstTxtAr.getText())));
+                }
+            }
+        });
 
         convPanel.setBounds(0, 100, 400, 30);
         convPanel.add(convertBtn);
 
+    }
+
+    private void convertCelToFahr(double c){
+        resDbl = (c * (9.0 / 5.0)) + 32;
+    }
+
+    private void convertCelToKelvin(double c){
+        resDbl = c + 273.15;
+    }
+
+    private void convertFahrToCel(double f){
+        resDbl = (f - 32.0) / 1.8000;
+    }
+
+    private void convertFahrToKel(double f){
+        resDbl = (f + 459.67) * (5.0/9.0);
+    }
+
+    private void convertKelToCel(double k){
+        resDbl = k - 273.15;
+    }
+
+    private void convertKelToFahr(double k){
+        resDbl = (k * (9.0 / 5.0)) - 459.57;
     }
 
 
